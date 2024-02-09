@@ -1,0 +1,18 @@
+@app.route('/api/data')
+def get_data():
+    return jsonify(sample_data)
+
+# Default route
+@app.route('/')
+def index():
+    return 'Welcome to the Backend!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+# Function to retrieve data from MongoDB
+def get_data_from_mongodb():
+    data = list(collection.find())
+    # Convert ObjectId to string in each document
+    for document in data:
+        document['_id'] = str(document['_id'])
+    return data
